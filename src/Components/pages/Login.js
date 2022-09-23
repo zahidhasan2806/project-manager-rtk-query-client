@@ -1,12 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../../features/auth/authApi';
 import logo from '../../images/logo.png';
 
 const Login = () => {
+    const [login, { data, isLoading, error: responseError }] = useLoginMutation();
+    const navigate = useNavigate();
+    const [error, setError] = useState('');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+        if (responseError?.data) {
+            setError(responseError.data);
+        }
+        if (data?.accessToken && data?.user) {
+            navigate('/teams');
+        }
+    }, [data, responseError, navigate]);
+
     const handleSubmit = (e) => {
-        e.preventDefault()
-    }
+        e.preventDefault();
+        login({ email, password });
+    };
+
+
     return (
         <div className="grid place-items-center h-screen bg-[#F9FAFB]">
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -65,6 +83,7 @@ const Login = () => {
 
                         <div>
                             <button
+                                disabled={isLoading}
                                 type="submit"
                                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-500"
                             >
@@ -72,6 +91,7 @@ const Login = () => {
                             </button>
                         </div>
                     </form>
+                    {error !== '' && <div className='text-lg text-red-600' >{error}</div>}
                 </div>
             </div>
         </div>
