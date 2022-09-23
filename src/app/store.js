@@ -13,7 +13,7 @@ export const store = configureStore({
     teams: teamsSliceReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
-  // middleware: (getDefaultMiddleware) => {
-  //   getDefaultMiddleware().concat(apiSlice.middleware)
-  // }
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware)
+
 });

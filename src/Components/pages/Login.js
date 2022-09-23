@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '../../features/auth/authApi';
 import logo from '../../images/logo.png';
+import Error from '../../ui/Error';
 
 const Login = () => {
     const [login, { data, isLoading, error: responseError }] = useLoginMutation();
@@ -14,14 +15,15 @@ const Login = () => {
         if (responseError?.data) {
             setError(responseError.data);
         }
-        if (data?.accessToken && data?.user) {
-            navigate('/teams');
-        }
-    }, [data, responseError, navigate]);
+
+    }, [data, responseError]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         login({ email, password });
+        if (data?.accessToken && data?.user) {
+            navigate('/teams');
+        }
     };
 
 
@@ -91,7 +93,7 @@ const Login = () => {
                             </button>
                         </div>
                     </form>
-                    {error !== '' && <div className='text-lg text-red-600' >{error}</div>}
+                    {error !== '' && <Error message={error} />}
                 </div>
             </div>
         </div>

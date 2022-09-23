@@ -9,7 +9,6 @@ const Navigation = () => {
     const projects = useMatch('/projects');
     const teams = useMatch('/teams');
     const { user } = useSelector((state) => state.auth) || {};
-    console.log(user);
     const handleLogout = () => {
         dispatch(userLoggedOut());
         localStorage.clear();
