@@ -1,4 +1,4 @@
-import { apiSlice } from "../api/apiSlice";
+import apiSlice from "../api/apiSlice";
 
 export const teamsApi = apiSlice.injectEndpoints({
     //endpoints
@@ -29,10 +29,59 @@ export const teamsApi = apiSlice.injectEndpoints({
                 } catch (error) { }
             },
         }),
+        updateTeam: builder.mutation({
+            query: (data) => {
+                let { id, members } = data || {};
+                let updatedTeam = {};
+                if (members?.length) updatedTeam = { ...updatedTeam, members };
+                return {
+                    url: `/teams/${id}`,
+                    method: 'PATCH',
+                    body: updatedTeam,
+                };
+            },
 
+            async onQueryStarted(arg, { queryFulfilled, dispatch, getState }) {
+                try {
+                    let { data: updatedTeam } = await queryFulfilled;
+                    let { email } = getState().auth?.user;
+
+                    dispatch(
+                        teamsApi.util.updateQueryData('getTeams', email, (draft) => {
+                            return draft.map((team) =>
+                                team.id === updatedTeam.id ? { ...team, members: updatedTeam.members } : team
+                            );
+                        })
+                    );
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+        }),
+
+        deleteTeam: builder.mutation({
+            query: ({ id, email }) => {
+                return {
+                    url: `/teams/${id}`,
+                    method: 'DELETE',
+                };
+            },
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    await queryFulfilled;
+                    dispatch(
+                        teamsApi.util.updateQueryData('getTeams', arg.email, (draft) => {
+                            return draft.filter((team) => team.id !== arg.id);
+                        })
+                    );
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+        }),
 
     })
 });
 
 export default teamsApi;
-export const { useAddTeamMutation, useGetTeamsQuery } = teamsApi 
+export const { useAddTeamMutation, useGetTeamsQuery, useUpdateTeamMutation, useDeleteTeamMutation } = teamsApi 

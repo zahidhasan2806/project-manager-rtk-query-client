@@ -13,7 +13,7 @@ const baseQuery = fetchBaseQuery({
         return headers;
     },
 });
-export const apiSlice = createApi({
+const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: async (args, api, extraOptions) => {
         let result = await baseQuery(args, api, extraOptions);
@@ -26,3 +26,4 @@ export const apiSlice = createApi({
     },
     endpoints: () => ({}),
 })
+export default apiSlice

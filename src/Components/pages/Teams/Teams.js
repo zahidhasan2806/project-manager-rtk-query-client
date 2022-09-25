@@ -1,27 +1,41 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetTeamsQuery } from '../../../features/teams/teamsApi';
+import AddNewTeamModal from '../../../modals/AddNewTeamModal';
 import Error from '../../../ui/Error';
 import Loader from '../../../ui/Loader';
 import Layout from '../../ui/Layout';
 import Team from './Team';
 
 const Teams = () => {
-    const [showMenu, setShowMenu] = useState(false);
     const [showModal, setShowModal] = useState(false);
+
+
     const { user } = useSelector((state) => state.auth);
     const { data: teams, isLoading, isSuccess, isError } = useGetTeamsQuery(user.email);
+
+
     const control = (value) => {
         setShowModal(value);
     };
+
+
+
+
+
+
     let content = null;
     if (isLoading) content = <Loader message='Loading assigned teams...' />;
     if (!isLoading && isError) content = <Error message='some thing went wrong' />;
     if (!isLoading && !isError && teams.length === 0) content = <p>You are not assigned to any team!!</p>;
-    if (!isLoading && isSuccess && teams.length) content = teams.map((team) => <Team key={team.id} team={team} />);
+    if (!isLoading && isSuccess && teams.length) content = teams.map((team) =>
+        <Team key={team.id} team={team}
+
+
+        />);
 
     return (
-        <div>
+        <div >
             <Layout>
                 <div className='px-10 mt-6 flex justify-between'>
                     <h1 className='text-2xl font-bold'>Teams</h1>
@@ -39,15 +53,10 @@ const Teams = () => {
                     </button>
                 </div>
                 <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 px-10 mt-4 gap-6 overflow-auto'>
-                    {/* <Team />
-					<Team />
-					<Team />
-					<Team />
-					<Team /> */}
                     {content}
                 </div>
 
-                {/* {showModal && <AddTeamModal control={control} />} */}
+                {showModal && <AddNewTeamModal control={control} shown={showModal} />}
             </Layout>
         </div>
     );
