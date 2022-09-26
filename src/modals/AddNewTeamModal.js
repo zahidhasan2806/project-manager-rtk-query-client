@@ -31,7 +31,7 @@ const AddNewTeamModal = ({ control, shown }) => {
             </div>
             <form onSubmit={handleSubmit}>
                 <input className='w-full border border-gray-500 rounded focus:outline-none my-1 p-2 text-black' type='text' placeholder='Team Name' required onChange={(e) => setName(e.target.value)} />
-                <input className='w-full border border-gray-500 rounded focus:outline-none my-1 p-2 text-black' type='text' placeholder='Title' required onChange={(e) => setTitle(e.target.value)} />
+                <input className='w-full border border-gray-500 rounded focus:outline-none my-1 p-2 text-black' type='text' placeholder='Description' required onChange={(e) => setTitle(e.target.value)} />
                 <input
                     className='w-full border border-gray-500 rounded focus:outline-none my-1 p-2 text-black'
                     type='text'
