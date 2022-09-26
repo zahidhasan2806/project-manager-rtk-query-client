@@ -68,6 +68,10 @@ const AddMemberToTeam = ({ shown, teamId, control, members, setShowMenu }) => {
         control(false);
         setShowMenu(false)
     };
+    const cancelModal = () => {
+        control(false)
+        setShowMenu(false)
+    }
 
     return (
         <ModalLayout control={control} shown={shown} >
@@ -94,7 +98,7 @@ const AddMemberToTeam = ({ shown, teamId, control, members, setShowMenu }) => {
                     <button
                         className='ml-2 inline-block w-auto px-2 py-1 py-1 bg-red-300 rounded font-semibold text-sm order-1 text-xs leading-3'
                         type='button'
-                        onClick={() => control(false)}>
+                        onClick={cancelModal}>
                         Cancel
                     </button>
                 </div>

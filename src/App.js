@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Login from './Components/pages/Login';
-import Projects from './Components/pages/Projects';
+import Projects from './Components/pages/Projects/Projects';
 import Teams from './Components/pages/Teams/Teams';
 import PrivateRoute from './Components/router/PrivateRoute';
 import useAuthCheck from './hooks/useAuthCheck';

@@ -2,7 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useMatch } from 'react-router-dom';
 import { userLoggedOut } from '../../features/auth/authSlice';
+import { search } from '../../features/projects/projectsSlice';
 import logo from '../../images/logo.png'
+import { debounce } from '../../utils/utils';
 
 const Navigation = () => {
     const dispatch = useDispatch();
@@ -13,6 +15,10 @@ const Navigation = () => {
         dispatch(userLoggedOut());
         localStorage.clear();
     };
+
+    const handleSearch = (e) => {
+        dispatch(search(e.target.value));
+    };
     return (
         <div className="flex items-center justify-between py-3 px-10 bg-white bg-opacity-75">
             <div className="flex items-center">
@@ -20,6 +26,7 @@ const Navigation = () => {
 
                 {projects && (
                     <input
+                        onChange={debounce(handleSearch, 400)}
                         className={`flex items-center h-10 px-4 ml-10 text-sm bg-gray-200 rounded-full focus:outline-none focus:ring`}
                         type="search"
                         placeholder="Search for anything…"
