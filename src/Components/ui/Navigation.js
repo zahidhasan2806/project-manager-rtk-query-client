@@ -58,9 +58,17 @@ const Navigation = () => {
                 >
                     Logout
                 </button>
-                <button className="flex items-center justify-center w-8 h-8 ml-auto overflow-hidden rounded-full cursor-pointer">
-                    {user?.name}
-                </button>
+                <div
+                    className='relative flex flex-col items-start cursor-pointer bg-opacity-90 group hover:bg-opacity-100'
+                    draggable='true'>
+                    <button className="flex items-center justify-center w-8 h-8 ml-auto overflow-hidden rounded-full cursor-pointer">
+
+                        <img src={user?.avatar ? user.avatar : 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'} alt="User Avatar" />
+                    </button>
+                    <div className='w-60 absolute bg-white  p-4 top-8 right-0 flex items-center justify-center hidden h-5 mt-3  rounded text-black group-hover:flex'>
+                        <h1 className="font-bold">{user?.name}</h1>
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ import { useUpdateTeamMutation } from '../features/teams/teamsApi';
 import { debounce } from '../utils/utils';
 
 
-const AddMemberToTeam = ({ shown, teamId, control, members, setShowMenu }) => {
+const AddMemberToTeam = ({ shown, teamId, setShowAddMemberForm, members, setShowMenu }) => {
     const { email: loggedInUserEmail } = useSelector((state) => state.auth.user);
     const { data: users, isSuccess: getUsersSuccess } = useGetUsersQuery();
     const [selectedMember, setSelectedMember] = useState({});
@@ -65,16 +65,16 @@ const AddMemberToTeam = ({ shown, teamId, control, members, setShowMenu }) => {
         //handle empty value
         if (!selectedMember?.value?.trim().length || members.includes(selectedMember?.value)) return;
         updatedTeam({ id: teamId, members: [...members, selectedMember?.value] });
-        control(false);
+        setShowAddMemberForm(false);
         setShowMenu(false)
     };
     const cancelModal = () => {
-        control(false)
+        setShowAddMemberForm(false)
         setShowMenu(false)
     }
 
     return (
-        <ModalLayout control={control} shown={shown} >
+        <ModalLayout control={setShowAddMemberForm} shown={shown} >
             <form onSubmit={handleSubmit} className='w-96' >
                 <AsyncSelect
                     noOptionsMessage={() => 'not found'}

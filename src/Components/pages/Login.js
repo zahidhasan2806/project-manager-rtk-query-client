@@ -29,7 +29,7 @@ const Login = () => {
 
     return (
         <div className="grid place-items-center h-screen bg-[#F9FAFB]">
-            <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-full flex items-center justify-center pt-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
                         <img
@@ -95,6 +95,14 @@ const Login = () => {
                     </form>
                     {error !== '' && <Error message={error} />}
                 </div>
+            </div>
+            <div className='shadow-2xl p-4'>
+                <p>Email: zahid@student.learnwithsumit.com</p>
+                <p>Email: sumit@learnwithsumit.com</p>
+                <p>Email: akash@learnwithsumit.com</p>
+                <p>Email: incognito@learnwithsumit.com</p>
+                <p>Email: test@learnwithsumit.com</p>
+                <p>Password: 123456</p>
             </div>
         </div>
     );

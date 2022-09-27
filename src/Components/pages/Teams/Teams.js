@@ -57,6 +57,7 @@ const Teams = () => {
                 </div>
 
                 {showModal && <AddNewTeamModal control={control} shown={showModal} />}
+
             </Layout>
         </div>
     );
