@@ -24,9 +24,9 @@ const TeamMembersModal = ({ control, shown, members, teamName, color }) => {
                     matchedUsers.map(matchedUser => <div key={matchedUser?.id} >
 
                         <div
-                            className='flex flex-col items-start rounded-lg cursor-pointer  bg-white border rounded p-2 border-gray-500 border-opacity-75 min-h-max '>
+                            className='flex flex-col items-start rounded-lg cursor-pointer  bg-white border rounded border-gray-500 border-opacity-75 min-h-max '>
 
-                            <img className='rounded-full ' src={matchedUser?.avatar ? matchedUser.avatar : 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'} alt="User Avatar" />
+                            <img className='object-cover h-40 w-80' src={matchedUser?.avatar ? matchedUser.avatar : 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'} alt="User Avatar" />
 
 
                             <h1 className='mt-3 text-lg text-center font-medium'>{matchedUser?.name}</h1>
