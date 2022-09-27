@@ -39,14 +39,7 @@ const BoardColumn = () => {
         }
     }, [teams, teamsLoading, teamsLoadingSuccess, dispatch]);
 
-    let transformedProjects = projects?.map((project) => {
-        for (let { name, color } of teams) {
-            if (name === project.team) {
-                project = { ...project, color };
-            }
-        }
-        return project;
-    });
+
 
     const control = (value) => {
         setShowModal(value);
@@ -58,12 +51,12 @@ const BoardColumn = () => {
             {isLoading && <Loader message='loading...' />}
             {!isLoading && isError && <Error message='some thing went wrong' />}
             {!isError && isSuccess && (<>
-                <ColumnLayout projects={transformedProjects} stage='Backlog' control={control} teams={teams} />
-                <ColumnLayout projects={transformedProjects} stage='Ready' teams={teams} />
-                <ColumnLayout projects={transformedProjects} stage='Doing' teams={teams} />
-                <ColumnLayout projects={transformedProjects} stage='Review' teams={teams} />
-                <ColumnLayout projects={transformedProjects} stage='Blocked' teams={teams} />
-                <ColumnLayout projects={transformedProjects} stage='Done' teams={teams} />
+                <ColumnLayout projects={projects} stage='Backlog' control={control} teams={teams} />
+                <ColumnLayout projects={projects} stage='Ready' teams={teams} />
+                <ColumnLayout projects={projects} stage='Doing' teams={teams} />
+                <ColumnLayout projects={projects} stage='Review' teams={teams} />
+                <ColumnLayout projects={projects} stage='Blocked' teams={teams} />
+                <ColumnLayout projects={projects} stage='Done' teams={teams} />
             </>)}
 
             {showModal && <AddNewProjectModal control={control} teams={teams} shown={showModal} />}
